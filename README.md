@@ -1,5 +1,7 @@
 ## BSON encoder/decoder from the [Vitess] project
 
+[Vitess]: https://github.com/youtube/vitess
+
 ### Installation
 ```
 go get -u github.com/missionMeteora/vitess-bson
@@ -18,4 +20,6 @@ BenchmarkEncodeInterface	 1000000	      2478 ns/op
 ok  	github.com/missionMeteora/vitess-bson	14.458s
 ```
 
-[Vitess]: https://github.com/youtube/vitess
+### Note
+http://gopkg.in/mgo.v2/bson sucks at speed and can't encode uint64.
+

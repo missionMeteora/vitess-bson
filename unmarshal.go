@@ -6,7 +6,6 @@ package bson
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"reflect"
@@ -40,10 +39,6 @@ func (builder *valueBuilder) canUnMarshal() Unmarshaler {
 // Unmarshal unmarshals b into val.
 func Unmarshal(b []byte, val interface{}) (err error) {
 	return UnmarshalFromBuffer(bytes.NewBuffer(b), val)
-}
-
-func UnmarshalJSON(b []byte, val interface{}) (err error) {
-	return json.Unmarshal(b, val)
 }
 
 // UnmarshalFromStream unmarshals from reader into val.

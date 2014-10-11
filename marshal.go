@@ -5,7 +5,6 @@
 package bson
 
 import (
-	"encoding/json"
 	"io"
 	"math"
 	"reflect"
@@ -88,10 +87,6 @@ func Marshal(val interface{}) (encoded []byte, err error) {
 	buf := bytes2.NewChunkedWriter(DefaultBufferSize)
 	err = MarshalToBuffer(buf, val)
 	return buf.Bytes(), err
-}
-
-func MarshalJSON(val interface{}) (encoded []byte, err error) {
-	return json.Marshal(val)
 }
 
 // MarshalToBuffer marshals val into buf. This is the most efficient

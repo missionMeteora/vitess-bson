@@ -6,6 +6,7 @@ package bson
 
 import (
 	"bytes"
+	"encoding/json"
 	"reflect"
 	"testing"
 	"time"
@@ -386,6 +387,7 @@ func TestStream(t *testing.T) {
 var testMap map[string]interface{}
 var testBlob []byte
 var testBlobJSON []byte
+var testBlobGOBSON []byte
 
 func init() {
 	testMap = map[string]interface{}{
@@ -404,12 +406,12 @@ func init() {
 		"nil":     nil,
 	}
 	testBlob, _ = Marshal(testMap)
-	testBlobJSON, _ = MarshalJSON(testMap)
+	testBlobJSON, _ = json.Marshal(testMap)
 }
 
 func BenchmarkMarshalJSON(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		_, err := MarshalJSON(testMap)
+		_, err := json.Marshal(testMap)
 		if err != nil {
 			b.Fatal(err)
 		}
@@ -419,7 +421,7 @@ func BenchmarkMarshalJSON(b *testing.B) {
 func BenchmarkUnmarshalJSON(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v := make(map[string]interface{})
-		err := UnmarshalJSON(testBlobJSON, &v)
+		err := json.Unmarshal(testBlobJSON, &v)
 		if err != nil {
 			b.Fatal(err)
 		}
