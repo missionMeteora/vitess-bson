@@ -300,7 +300,7 @@ func EncodeBool(buf *bytes2.ChunkedWriter, key string, val bool) {
 // EncodeTime encodes a time.Time.
 func EncodeTime(buf *bytes2.ChunkedWriter, key string, val time.Time) {
 	EncodePrefix(buf, Datetime, key)
-	mtime := val.UnixNano() / 1e6
+	mtime := val.UnixNano()
 	putUint64(buf, uint64(mtime))
 }
 

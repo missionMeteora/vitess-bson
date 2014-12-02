@@ -193,7 +193,7 @@ func DecodeTime(buf *bytes.Buffer, kind byte) time.Time {
 	switch kind {
 	case Datetime:
 		ui64 := Pack.Uint64(Next(buf, 8))
-		return time.Unix(0, int64(ui64)*1e6).UTC()
+		return time.Unix(0, int64(ui64)).UTC()
 	case Null:
 		return time.Time{}
 	}
