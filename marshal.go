@@ -162,6 +162,8 @@ func encodeField(buf *bytes2.ChunkedWriter, key string, val reflect.Value) {
 		EncodeInt64(buf, key, val.Int())
 	case reflect.Int32:
 		EncodeInt32(buf, key, int32(val.Int()))
+	case reflect.Int16:
+		EncodeInt16(buf, key, int16(val.Int()))
 	case reflect.Int:
 		EncodeInt(buf, key, int(val.Int()))
 	case reflect.Uint64:
@@ -246,6 +248,12 @@ func EncodeInt32(buf *bytes2.ChunkedWriter, key string, val int32) {
 	putUint32(buf, uint32(val))
 }
 
+// EncodeInt16 encodes an int16.
+func EncodeInt16(buf *bytes2.ChunkedWriter, key string, val int16) {
+	EncodePrefix(buf, Int, key)
+	putUint16(buf, uint16(val))
+}
+
 // EncodeInt encodes an int.
 func EncodeInt(buf *bytes2.ChunkedWriter, key string, val int) {
 	EncodeInt64(buf, key, int64(val))
@@ -259,6 +267,11 @@ func EncodeUint64(buf *bytes2.ChunkedWriter, key string, val uint64) {
 
 // EncodeUint32 encodes an uint32.
 func EncodeUint32(buf *bytes2.ChunkedWriter, key string, val uint32) {
+	EncodeUint64(buf, key, uint64(val))
+}
+
+// EncodeUint16 encodes an uint16.
+func EncodeUint16(buf *bytes2.ChunkedWriter, key string, val uint16) {
 	EncodeUint64(buf, key, uint64(val))
 }
 
@@ -350,6 +363,10 @@ func encodeSliceContent(buf *bytes2.ChunkedWriter, val reflect.Value) {
 		encodeField(buf, Itoa(i), val.Index(i))
 	}
 	lenWriter.Close()
+}
+
+func putUint16(buf *bytes2.ChunkedWriter, val uint16) {
+	Pack.PutUint16(buf.Reserve(WORD16), val)
 }
 
 func putUint32(buf *bytes2.ChunkedWriter, val uint32) {

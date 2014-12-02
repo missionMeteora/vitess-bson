@@ -117,6 +117,8 @@ func decodeDocument(buf *bytes.Buffer, builder *valueBuilder, kind byte) {
 			b2.setUint(DecodeUint64(buf, kind))
 		case reflect.Uint32:
 			b2.setUint(uint64(DecodeUint32(buf, kind)))
+		case reflect.Uint16:
+			b2.setUint(uint64(DecodeUint16(buf, kind)))
 		case reflect.Uint:
 			b2.setUint(uint64(DecodeUint(buf, kind)))
 		case reflect.Float64:

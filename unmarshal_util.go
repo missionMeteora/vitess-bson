@@ -129,6 +129,20 @@ func DecodeUint32(buf *bytes.Buffer, kind byte) uint32 {
 	panic(NewBsonError("unexpected kind %v for uint32", kind))
 }
 
+// DecodeUint16 decodes a uint16 from buf.
+// Allowed types: Int, Long, Null.
+func DecodeUint16(buf *bytes.Buffer, kind byte) uint16 {
+	switch kind {
+	case Int:
+		return Pack.Uint16(Next(buf, 2))
+	case Ulong:
+		return uint16(Pack.Uint64(Next(buf, 4)))
+	case Null:
+		return 0
+	}
+	panic(NewBsonError("unexpected kind %v for uint16", kind))
+}
+
 // DecodeUint decodes a uint64 from buf.
 // Allowed types: Int, Long, Ulong, Null.
 func DecodeUint(buf *bytes.Buffer, kind byte) uint {

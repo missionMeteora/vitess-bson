@@ -23,6 +23,7 @@ var (
 
 // Words size in bytes.
 const (
+	WORD16 = 2
 	WORD32 = 4
 	WORD64 = 8
 )
